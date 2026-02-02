@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import static java.lang.IO.println;
 
-public class DuplicateNumbersInOrderedArray {
+public class RemoveDuplicates {
     public int[] removeDuplicates(int[] arr) {
         if (arr == null || arr.length == 0) {
             return arr;
@@ -23,7 +23,7 @@ public class DuplicateNumbersInOrderedArray {
     }
 
     void main() {
-        DuplicateNumbersInOrderedArray dn = new DuplicateNumbersInOrderedArray();
+        RemoveDuplicates dn = new RemoveDuplicates();
         println(Arrays.toString(dn.removeDuplicates(new int[]{1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9})));
     }
 }
