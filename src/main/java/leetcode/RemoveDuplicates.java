@@ -19,11 +19,30 @@ public class RemoveDuplicates {
                 arr[i]=arr[j];
             }
         }
+        println("final value of i method 1, " + i);
         return arr;
+    }
+
+    public int[] removeDuplicates2(int[] nums) {
+        if (nums.length == 0)
+            return nums;
+
+        int i = 1;
+
+        for (int j = 1; j < nums.length; j++) {
+            if (nums[j] != nums[i - 1]) {
+                nums[i] = nums[j];
+                i++;
+            }
+        }
+        println("final value of i method 2, " + i);
+        return nums;
+
     }
 
     void main() {
         RemoveDuplicates dn = new RemoveDuplicates();
         println(Arrays.toString(dn.removeDuplicates(new int[]{1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9})));
+        println(Arrays.toString(dn.removeDuplicates2(new int[]{1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9})));
     }
 }
