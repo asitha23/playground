@@ -1,9 +1,8 @@
-package experiments;
+package experiments.algo;
 
 import java.util.Arrays;
 import java.util.Random;
 
-import static java.lang.IO.print;
 import static java.lang.IO.println;
 
 public class InsertionSort {
