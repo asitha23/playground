@@ -1,8 +1,9 @@
 package streamapi;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import streamapi.dtos.City;
+
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,6 +22,10 @@ public class StreamMethods {
         streamIterate();
         streamGatherSlidingWindow();
         mapToMap();
+        streamFaltList();
+        listToMap();
+        mapToList();
+        flatMapToMap();
 
         streamReuseException();
     }
@@ -77,5 +82,45 @@ public class StreamMethods {
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> Integer.toBinaryString(entry.getValue())));
         transformdMap.forEach((k, v) -> println(k + " : " + v));
 
+    }
+
+    void listToMap() {
+        println("listToMap");
+        Map<Integer, Long> countMap =  list.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        countMap.forEach((k,v) -> println(k + " : " + v));
+        Map<String, Set<City>> groupedByCountry = getListOfCity().stream()
+                .collect(Collectors.groupingBy(City::country, Collectors.toSet()));
+        groupedByCountry.forEach((k,v) -> println(k + " : " + v));
+    }
+
+    List<City> getListOfCity() {
+        return List.of(new City("Nice", "France", 123),
+                new  City("Amesterdam", "Netherlands", 123),
+                new City("Colombo", "Sri lanka", 123),
+                new City("New york", "USA", 123),
+                new City("London", "UK", 123),
+                new City("Singapore", "Singapore", 123),
+                new City("Holland", "Netherlands", 123));
+    }
+
+    void mapToList() {
+        println("mapToList");
+        Map<String, Set<City>> groupedByCountry = getListOfCity().stream()
+                .collect(Collectors.groupingBy(City::country, Collectors.toSet()));
+        List<City> listOfCities = groupedByCountry.values().stream().flatMap(Set::stream).toList();
+        listOfCities.forEach(System.out::println);
+    }
+
+    void flatMapToMap() {
+        println("flatMapToMap");
+        List<Map<String, String>> listMaps = Arrays.asList(
+                Map.of("key1", "value1", "key2", "value2"),
+                Map.of("key3", "value3", "key4", "value4"),
+                Map.of("key1", "newValue1") // Duplicate key "key1"
+        );
+        Map<String, String> falattenMap = listMaps.stream().
+                flatMap(entry -> entry.entrySet().stream()).
+                collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, String::concat));
+        println("falattenMap : " + falattenMap);
     }
 }
