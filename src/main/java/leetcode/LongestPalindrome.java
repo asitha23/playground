@@ -1,33 +1,30 @@
 package leetcode;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class LongestPalindrome {
 
-    /***
-     * <link href="https://leetcode.com/problems/longest-palindrome/description/"> link </a>
-     * @param s input
-     * @return int
-     */
-    private int longestPalindrome(String s) {
-        Set<Character> set = new HashSet<>();
+    public String longestPalindrome(String s) {
         int length = 0;
-        for (char c : s.toCharArray()) {
-            if (set.contains(c)) {
-                length += 2;
-                set.remove(c);
-            } else {
-                set.add(c);
+        int max = 0;
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int l1 = longestPalindrome(s, i, i);
+            int l2 = longestPalindrome(s, i, i + 1);
+            int currentMax = Math.max(l1, l2);
+            if (max < currentMax) {
+                max = currentMax;
+                start = i - ((max - 1)/2);
+                end = i + (max/2);
             }
         }
-        if (!set.isEmpty())
-            length++;
-        return length;
+        return s.substring(start, end + 1);
     }
 
-    void main() {
-        String s = "abcdefg";
-        System.out.println(longestPalindrome(s));
+    private int longestPalindrome(String s, int min, int max) {
+            while (max < s.length() && min > 0 && s.charAt(min) == s.charAt(max)) {
+                max++;
+                min--;
+            }
+            return max - min - 1;
     }
 }
