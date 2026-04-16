@@ -32,7 +32,7 @@ public class StreamMethods {
 
 
     void streamReduce() {
-        println("streamReduce" + list.stream().reduce(Integer::sum));
+        println("streamReduce" + list.stream().reduce(Integer::sum).orElse(0));
     }
 
     void streamMaxMin() {
