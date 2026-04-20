@@ -1,4 +1,4 @@
-package experiments;
+package concurrancy;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

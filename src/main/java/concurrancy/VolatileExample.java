@@ -1,4 +1,4 @@
-package experiments;
+package concurrancy;
 
 public class VolatileExample {
     // Try toggling the 'volatile' keyword here to see the difference
