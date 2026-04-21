@@ -3,6 +3,9 @@ package leetcode;
 import java.util.*;
 
 class FindAllPpl {
+    /*
+    URL : https://leetcode.com/problems/find-all-people-with-secret/description/
+     */
     public List<Integer> findAllPeople(int n, int[][] meetings, int firstPerson) {
         // 1. Sort meetings by time
         Arrays.sort(meetings, (a, b) -> Integer.compare(a[2], b[2]));
