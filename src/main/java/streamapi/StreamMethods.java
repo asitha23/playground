@@ -27,6 +27,8 @@ public class StreamMethods {
         mapToList();
         flatMapToMap();
 
+        findMaxPopulatedCity();
+
         streamReuseException();
     }
 
@@ -96,13 +98,13 @@ public class StreamMethods {
     }
 
     List<City> getListOfCity() {
-        return List.of(new City("Nice", "France", 123),
-                new  City("Amesterdam", "Netherlands", 123),
-                new City("Colombo", "Sri lanka", 123),
-                new City("New york", "USA", 123),
-                new City("London", "UK", 123),
-                new City("Singapore", "Singapore", 123),
-                new City("Holland", "Netherlands", 123));
+        return List.of(new City("Nice", "France", 213),
+                new  City("Amesterdam", "Netherlands", 123123),
+                new City("Colombo", "Sri lanka", 142342),
+                new City("New york", "USA", 885),
+                new City("London", "UK", 345),
+                new City("Singapore", "Singapore", 654),
+                new City("Holland", "Netherlands", 665));
     }
 
     void mapToList() {
@@ -124,5 +126,17 @@ public class StreamMethods {
                 flatMap(entry -> entry.entrySet().stream()).
                 collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, String::concat));
         println("falattenMap : " + falattenMap);
+    }
+
+    private void countCitiesByCountry() {
+        println("countCitiesByCountry");
+        Map<String, Long> gByCountry = getListOfCity().stream().collect(Collectors.groupingBy(City::country, Collectors.counting()));
+        gByCountry.forEach((k,v) -> println(k + " : " + v));
+    }
+
+    private void findMaxPopulatedCity() {
+        println("findMaxPopulatedCity");
+        City city = getListOfCity().stream().max(Comparator.comparing(City::population)).orElseThrow();
+        println("max population city : " + city);
     }
 }
