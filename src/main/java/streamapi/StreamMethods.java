@@ -17,17 +17,18 @@ public class StreamMethods {
 
 
     void main() {
-        streamReduce();
-        streamMaxMin();
-        streamIterate();
-        streamGatherSlidingWindow();
-        mapToMap();
-        streamFaltList();
-        listToMap();
-        mapToList();
-        flatMapToMap();
-
-        findMaxPopulatedCity();
+//        streamReduce();
+//        streamMaxMin();
+//        streamIterate();
+//        streamGatherSlidingWindow();
+//        mapToMap();
+//        streamFaltList();
+//        listToMap();
+//        mapToList();
+//        flatMapToMap();
+//
+//        findMaxPopulatedCity();
+        countCitiesByCountry();
 
         streamReuseException();
     }
@@ -131,7 +132,9 @@ public class StreamMethods {
     private void countCitiesByCountry() {
         println("countCitiesByCountry");
         Map<String, Long> gByCountry = getListOfCity().stream().collect(Collectors.groupingBy(City::country, Collectors.counting()));
-        gByCountry.forEach((k,v) -> println(k + " : " + v));
+        gByCountry.forEach((k,v) -> println("First : " + k + " : " + v));
+        Map<String, Long> count = getListOfCity().stream().collect(Collectors.toMap(City::country, _ -> 1L, Long::sum));
+        count.forEach((s, x) -> println("Second " + s + ": " + x));
     }
 
     private void findMaxPopulatedCity() {
