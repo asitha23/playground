@@ -70,8 +70,10 @@ public class StreamMethods {
     void streamFaltList() {
         println("streamFaltMap");
         listOfList.forEach(System.out::println);
+        Set<Set<Integer>> setOfSet = Set.of(Set.of(1, 2, 3), Set.of(4, 5, 6), Set.of(7, 8, 9));
         List<Integer> s = listOfList.stream().flatMap(List::stream).toList();
         s.forEach(System.out::println);
+        setOfSet.stream().flatMap(Set::stream).forEach(System.out::println);
     }
 
     void mapToMap() {
