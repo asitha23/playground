@@ -5,6 +5,7 @@ import streamapi.dtos.City;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.lang.IO.println;
@@ -29,6 +30,7 @@ public class StreamMethods {
 //
 //        findMaxPopulatedCity();
         countCitiesByCountry();
+        intChunks();
 
         streamReuseException();
     }
@@ -141,5 +143,28 @@ public class StreamMethods {
         println("findMaxPopulatedCity");
         City city = getListOfCity().stream().max(Comparator.comparing(City::population)).orElseThrow();
         println("max population city : " + city);
+    }
+
+    private void intChunks() {
+        int[] arr = IntStream.range(0, 100).toArray();
+        println("intCunks");
+        int chunkSize = 3;
+        int[][] chunks = IntStream.of(arr).boxed().collect(Collectors.groupingBy(i -> i/chunkSize))
+                .values()
+                .stream()
+                .map(l -> l.stream().mapToInt(Integer::intValue).toArray())
+                .toArray(int[][]::new);
+        int[][] chunksArray = IntStream.iterate(0, i -> i < arr.length, i -> i + chunkSize)
+                .mapToObj(i -> Arrays.copyOfRange(arr, i, i + chunkSize))
+                .toArray(int[][]::new);
+        List<Integer> list = Arrays.stream(arr).boxed().toList();
+
+        int[][] withOutStream = new int[arr.length][];
+        for (int i = 0; i<arr.length; i += chunkSize) {
+            int end = Math.min(i + chunkSize, arr.length);
+            withOutStream[i] = Arrays.copyOfRange(arr, i, end);
+        }
+        System.out.println(Arrays.toString(withOutStream));
+
     }
 }
