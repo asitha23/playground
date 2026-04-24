@@ -167,4 +167,11 @@ public class StreamMethods {
         System.out.println(Arrays.toString(withOutStream));
 
     }
+
+    private void listOfListToInt2D() {
+        println("listOfListToInt2D");
+        int[][] int2d = listOfList.stream().map(il -> il.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new);
+        Integer[][] s = listOfList.stream().map(sl -> sl.toArray(Integer[]::new)).toArray(Integer[][]::new);
+        List<List<Integer>> listOfList = Stream.of(int2d).map(iar -> Arrays.stream(iar).boxed().toList()).toList();
+    }
 }
