@@ -5,7 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Reentrant {
-    private static ReentrantLock lock = new ReentrantLock();
+
+    private static final ReentrantLock lock = new ReentrantLock();
 
     private int counter = 0;
 
@@ -15,6 +16,7 @@ public class Reentrant {
                 executor.submit(this::increaseCounter);
             }
         }
+        resourceLock();
         System.out.println(counter);
     }
 
@@ -28,5 +30,13 @@ public class Reentrant {
             } finally {
                 lock.unlock();
             }
+    }
+
+    void resourceLock(){
+        try(AutoLock autoLock = new AutoLock()) {
+            autoLock.lock();
+            System.out.println(Thread.currentThread().getName() + ", I acquire the lock");
+            counter++;
+        }
     }
 }
