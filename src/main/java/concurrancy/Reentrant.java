@@ -12,14 +12,13 @@ public class Reentrant {
     void main(){
         try(ExecutorService executor = Executors.newFixedThreadPool(5)){
             for (int i = 0; i < 5; i++) {
-                executor.submit(increaseCounter());
+                executor.submit(this::increaseCounter);
             }
         }
         System.out.println(counter);
     }
 
-    private Runnable increaseCounter() {
-        return () -> {
+    private void increaseCounter() {
             try {
                 System.out.println(Thread.currentThread().getName() + " Increase counter started");
                 lock.lock();
@@ -29,6 +28,5 @@ public class Reentrant {
             } finally {
                 lock.unlock();
             }
-        };
     }
 }
