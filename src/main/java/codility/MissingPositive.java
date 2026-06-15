@@ -20,6 +20,8 @@ public class MissingPositive {
             }
         }
 
+        System.out.println("after cyclic sort "  + Arrays.toString(nums));
+
         // 2. Find the first index where the value doesn't match the slot
         for (int i = 0; i < n; i++) {
             if (nums[i] != i + 1) {
@@ -43,6 +45,9 @@ public class MissingPositive {
 
         int[] test2 = {1, 2, 0};
         System.out.println("Missing in {1, 2, 0}: " + findSmallestMissing(test2));    // Output: 3
+
+        int[] test3 = {4, 3, 2};
+        System.out.println("Missing in {4, 3, 2}: " + findSmallestMissing(test3));
     }
 
     public int solution(int[] A) {
