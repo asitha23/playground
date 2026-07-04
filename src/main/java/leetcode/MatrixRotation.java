@@ -33,7 +33,6 @@ class MatrixRotation {
     private boolean isSame(int[][] mat, int[][] target) {
         int row = mat.length;
         int col = mat[0].length;
-        int[][] ans = new int[col][row];
         for (int j = 0; j < col; j++) {
             for (int i = 0; i < row; i++) {
                 if (target[i][j] != mat[i][j]) {
